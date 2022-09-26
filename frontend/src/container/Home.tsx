@@ -8,8 +8,16 @@ import useAuthStore from "../store/authStore";
 import logo3 from "../assets/logo3.png";
 import Pins from "./Pins";
 
+export interface IUserProfile {
+  image: string ,
+  userName : string ,
+  _id :  string , 
+
+  _type : string , 
+} 
+
 const Home = () => {
-  const { userProfile }: any = useAuthStore();
+  const { userProfile }: (IUserProfile | any) = useAuthStore();
   console.log(userProfile);
   const scrollRef = useRef() as any;
 
@@ -56,7 +64,7 @@ const Home = () => {
         <Routes>
           <Route path="/user-profile/:userId" element={<UserProfile />} />
 
-          <Route path="/*" element={<Pins user={userProfile} />} />
+          <Route path="/*" element={<Pins />} />
         </Routes>
       </div>
     </div>
