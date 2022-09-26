@@ -15,10 +15,13 @@ const Pin = ({ pin }: Iprops) => {
   const [savingPost, setSavingPost] = useState(false);
   const { userProfile } = useAuthStore() as any;
 
+  
   const { postedBy, image, _id, destination, save } = pin;
   let alreadySaved = pin?.save?.filter(
     (item: any) => item?.postedBy?._id === userProfile?._id
   );
+  alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
+  
 
   const deletePin = (id:any) => {
     client
@@ -28,7 +31,8 @@ const Pin = ({ pin }: Iprops) => {
       });
   };
   const savePin = (id: any) => {
-    if (!alreadySaved) {
+    console.log(userProfile._id)
+    if (alreadySaved?.length === 0) {
       setSavingPost(true);
 
       client
@@ -75,15 +79,20 @@ const Pin = ({ pin }: Iprops) => {
                 <a
                   href={`${image?.asset?.url}?dl`}
                   download
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => {e.stopPropagation()}}
                   className="bg-white w-9 h-9 p-2 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none"
                 >
                   <MdDownloadForOffline />
                 </a>
               </div>
-              {alreadySaved ? (
+              {alreadySaved?.length !== 0  ? (
                 <button
                   type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    console.log(pin?.save);
+                    console.log(alreadySaved)
+                  }}
                   className="bg-pink-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                 >
                   {save?.length} Saved
