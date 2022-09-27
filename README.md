@@ -4,6 +4,7 @@
 
 * Images sharing application with UI/UX inspired by Pinterest
 * Database: Sanity 
+* Teach Stack: React JS + Vite + Sanity Query Language
 * Google Authentication and Authorization 
 * Like and Comment On Picture/Pin
 * Vist Other User Profiles and explore their interests
