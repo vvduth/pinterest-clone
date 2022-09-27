@@ -11,7 +11,7 @@ import useAuthStore from "../store/authStore";
 
 const PinDetails = () => {
   const { pinId } = useParams() as any;
-  const [pins, setPins] = useState();
+  const [pins, setPins] = useState<any>();
   const [pinDetail, setPinDetail] = useState<any>();
   const [comment, setComment] = useState("");
   const [addingComment, setAddingComment] = useState(false);
@@ -57,6 +57,7 @@ const PinDetails = () => {
   if (!pinDetail) return <Spinner message="Loading pin bro..." />;
 
   return (
+    <>
     <div
       className="flex xl-flex-row flex-col m-auto bg-white"
       style={{ maxWidth: "1500px", borderRadius: "32px" }}
@@ -120,9 +121,9 @@ const PinDetails = () => {
           ))}
         </div>
         <div className="flex flex-wrap mt-6 gap-3">
-          <Link to={`/user-profile/${userProfile._id}`}>
+          <Link to={`/user-profile/${userProfile?._id}`}>
             <img
-              src={userProfile.image}
+              src={userProfile?.image}
               className="w-10 h-10 rounded-full cursor-pointer"
               alt="user-profile"
             />
@@ -145,6 +146,17 @@ const PinDetails = () => {
         </div>
       </div>
     </div>
+     {pins?.length > 0 && (
+      <h2 className="text-center font-bold text-2xl mt-8 mb-4">
+        More like this
+      </h2>
+    )}
+    {pins ? (
+      <MasonryLayout pins={pins} />
+    ) : (
+      <Spinner message="Loading more pins" />
+    )}
+    </>
   );
 };
 

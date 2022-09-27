@@ -180,3 +180,58 @@ export const pinDetailMorePinQuery = (pin: any) => {
         }`;
   return query;
 };
+
+export const userQuery = (userId:any) => {
+  const query = `*[_type == "user" && _id == '${userId}']`;
+  return query;
+};
+
+export const userCreatedPinsQuery = (userId:any) => {
+  const query = `*[ _type == 'pin' && userId == '${userId}'] | order(_createdAt desc){
+    image{
+      asset->{
+        url
+      }
+    },
+    _id,
+    destination,
+    postedBy->{
+      _id,
+      userName,
+      image
+    },
+    save[]{
+      postedBy->{
+        _id,
+        userName,
+        image
+      },
+    },
+  }`;
+  return query;
+};
+
+export const userSavedPinsQuery = (userId:any) => {
+  const query = `*[_type == 'pin' && '${userId}' in save[].userId ] | order(_createdAt desc) {
+    image{
+      asset->{
+        url
+      }
+    },
+    _id,
+    destination,
+    postedBy->{
+      _id,
+      userName,
+      image
+    },
+    save[]{
+      postedBy->{
+        _id,
+        userName,
+        image
+      },
+    },
+  }`;
+  return query;
+};

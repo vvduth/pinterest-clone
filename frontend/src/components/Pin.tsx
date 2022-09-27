@@ -125,7 +125,7 @@ const Pin = ({ pin }: Iprops) => {
                 </a>
               )}
 
-              {postedBy?._id === userProfile._id && (
+              {postedBy?._id === userProfile?._id && (
                 <button
                   type="button"
                   onClick={(e) => {
