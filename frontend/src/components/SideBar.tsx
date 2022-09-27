@@ -5,22 +5,9 @@ import { RiHomeFill } from "react-icons/ri";
 import { IoIosArrowForward } from "react-icons/io";
 import logo3 from "../assets/logo3.png";
 import useAuthStore from "../store/authStore";
-// import { categories } from '../utils/data';
+import { categories } from '../utils/data';
 
-const categories = [
-  {
-    name: "Animal",
-  },
-  {
-    name: "Computer",
-  },
-  {
-    name: "Natural",
-  },
-  {
-    name: "Others",
-  },
-];
+
 
 const isNotActiveStyle =
   "flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize";
@@ -72,12 +59,13 @@ const SideBar = ({ user, closeToggle }: IProps) => {
                 }
                 onClick={handleCloseSideBar}
               >
+                <img src={category.image} alt="pic-category"  className="w-8 h-8 rounded-full shadow-sm"/> 
                 {category.name}
               </NavLink>
             ))}
         </div>
       </div>
-      {userProfile && (
+      {userProfile ? (
         <Link 
           to={`user-profile/${userProfile._id}`}
           className="flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg mx-3"
@@ -85,6 +73,15 @@ const SideBar = ({ user, closeToggle }: IProps) => {
         >
           <img src={userProfile.image} className="w-10 h-10 rounded-full" alt="user Profile"/>
           <p>{userProfile.userName}</p>
+        </Link>
+      ) : (
+        <Link 
+          to={`/login`}
+          className="flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg mx-3"
+          onClick={handleCloseSideBar}
+        >
+          
+          <p className="font-bold bg-red-700 text-white rounded-lg p-2">Login rightnow brah!</p>
         </Link>
       )}
     </div>

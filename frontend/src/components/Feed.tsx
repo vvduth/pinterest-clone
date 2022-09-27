@@ -31,6 +31,7 @@ const Feed = () => {
     }
   }, [categoryId]);
   if (loading) return <Spinner message="Loading..." />;
+  if(!pins?.length) return <h2>No pin available brah!</h2>
   return (<div>
 
     {pins && <MasonryLayout pins={pins} /> }
